@@ -15,6 +15,7 @@ public class GraphViewSeries {
 	static public class GraphViewSeriesStyle {
 		public int color = 0xff0077cc;
 		public int thickness = 3;
+		public boolean drawCirclePoint = false;
 		private ValueDependentColor valueDependentColor;
 
 		public GraphViewSeriesStyle() {
@@ -24,6 +25,12 @@ public class GraphViewSeries {
 			super();
 			this.color = color;
 			this.thickness = thickness;
+		}
+		public GraphViewSeriesStyle(int color, int thickness, boolean drawCirclePoint) {
+			super();
+			this.color = color;
+			this.thickness = thickness;
+			this.drawCirclePoint = drawCirclePoint;
 		}
 		public void setValueDependentColor(ValueDependentColor valueDependentColor) {
 			this.valueDependentColor = valueDependentColor;

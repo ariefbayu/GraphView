@@ -89,6 +89,9 @@ public class LineGraphView extends GraphView {
 				float endY = (float) (border - y) + graphheight;
 
 				canvas.drawLine(startX, startY, endX, endY, paint);
+				if(style.drawCirclePoint) {
+					canvas.drawCircle(endX, endY, style.thickness+2, paint);
+				}
 			}
 			lastEndY = y;
 			lastEndX = x;
