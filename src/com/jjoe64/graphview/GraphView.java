@@ -533,8 +533,6 @@ abstract public class GraphView extends LinearLayout {
 	}
 
 	public void redrawAll() {
-		verlabels = null;
-		horlabels = null;
 		numberformatter[0] = null;
 		numberformatter[1] = null;
 		invalidate();
