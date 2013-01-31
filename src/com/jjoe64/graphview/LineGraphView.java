@@ -26,6 +26,14 @@ public class LineGraphView extends GraphView {
 		paintBackground.setStrokeWidth(4);
 	}
 
+	public LineGraphView(Context context, String title, GraphViewStyle graphViewStyle) {
+		super(context, title, graphViewStyle);
+
+		paintBackground = new Paint();
+		paintBackground.setARGB(255, 20, 40, 60);
+		paintBackground.setStrokeWidth(4);
+	}
+
 	@Override
 	public void drawSeries(Canvas canvas, GraphViewData[] values, float graphwidth, float graphheight, float border, double minX, double minY, double diffX, double diffY, float horstart, GraphViewSeriesStyle style) {
 		// draw background

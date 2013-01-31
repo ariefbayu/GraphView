@@ -11,17 +11,26 @@ public class GraphViewStyle {
 	private int vLabelsColor;
 	private int hLabelsColor;
 	private int gridColor;
+	private int vertLabelsWeight;
 
 	public GraphViewStyle() {
 		vLabelsColor = Color.WHITE;
 		hLabelsColor = Color.WHITE;
 		gridColor = Color.DKGRAY;
+		vertLabelsWeight = 10;
 	}
 
 	public GraphViewStyle(int vLabelsColor, int hLabelsColor, int gridColor) {
 		this.vLabelsColor = vLabelsColor;
 		this.hLabelsColor = hLabelsColor;
 		this.gridColor = gridColor;
+	}
+
+	public GraphViewStyle(int vLabelsColor, int hLabelsColor, int gridColor, int vertLabelWeight) {
+		this.vLabelsColor = vLabelsColor;
+		this.hLabelsColor = hLabelsColor;
+		this.gridColor = gridColor;
+		this.vertLabelsWeight = vertLabelWeight;
 	}
 
 	public int getVerticalLabelsColor() {
@@ -35,6 +44,10 @@ public class GraphViewStyle {
 	public int getGridColor() {
 		return gridColor;
 	}
+	
+	public int getVerticalLabelsWeight(){
+		return vertLabelsWeight;
+	}
 
 	public void setVerticalLabelsColor(int c) {
 		vLabelsColor = c;
@@ -46,5 +59,9 @@ public class GraphViewStyle {
 
 	public void setGridColor(int c) {
 		gridColor = c;
+	}
+	
+	public void setVerticalLabelsWeight(int weight){
+		vertLabelsWeight = weight;
 	}
 }

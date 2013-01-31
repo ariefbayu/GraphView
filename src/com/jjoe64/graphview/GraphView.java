@@ -218,7 +218,7 @@ abstract public class GraphView extends LinearLayout {
 		 */
 		public VerLabelsView(Context context) {
 			super(context);
-			setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT, 10));
+			setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT, getGraphViewStyle().getVerticalLabelsWeight()));
 		}
 
 		/**
@@ -285,6 +285,25 @@ abstract public class GraphView extends LinearLayout {
 
 		graphViewStyle = new GraphViewStyle();
 
+		paint = new Paint();
+		graphSeries = new ArrayList<GraphViewSeries>();
+
+		viewVerLabels = new VerLabelsView(context);
+		addView(viewVerLabels);
+		graphViewContentView = new GraphViewContentView(context);
+		addView(graphViewContentView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT, 1));
+	}
+	
+	public GraphView(Context context, String title, GraphViewStyle graphViewStyle){
+		super(context);
+		setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+
+		if (title == null)
+			title = "";
+		else
+			this.title = title;
+
+		this.graphViewStyle = graphViewStyle;
 		paint = new Paint();
 		graphSeries = new ArrayList<GraphViewSeries>();
 
