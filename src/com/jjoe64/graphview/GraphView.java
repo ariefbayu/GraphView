@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.RectF;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -29,6 +30,12 @@ import com.jjoe64.graphview.compatible.ScaleGestureDetector;
  * http://www.gnu.org/licenses/lgpl.html
  */
 abstract public class GraphView extends LinearLayout {
+	private boolean showTitle = true;
+	private int horizontalLabelPosition = HORIZONTAL_LABEL_POSITION_BOTTOM;
+	
+	public static int HORIZONTAL_LABEL_POSITION_TOP = 1;
+	public static int HORIZONTAL_LABEL_POSITION_BOTTOM = 2;
+	
 	static final private class GraphViewConfig {
 		static final float BORDER = 20;
 		static final float VERTICAL_LABEL_WIDTH = 100;
@@ -98,11 +105,19 @@ abstract public class GraphView extends LinearLayout {
 				if (i==0)
 					paint.setTextAlign(Align.LEFT);
 				paint.setColor(graphViewStyle.getHorizontalLabelsColor());
-				canvas.drawText(horlabels[i], x, height - 4, paint);
+				if(horizontalLabelPosition == HORIZONTAL_LABEL_POSITION_BOTTOM){
+					canvas.drawText(horlabels[i], x, height - 4, paint);
+				} else if(horizontalLabelPosition == HORIZONTAL_LABEL_POSITION_TOP) {
+					canvas.drawText(horlabels[i], x, border - 4, paint);
+				}
 			}
 
-			paint.setTextAlign(Align.CENTER);
-			canvas.drawText(title, (graphwidth / 2) + horstart, border - 4, paint);
+			if(!title.equals("")){
+				if(showTitle){
+					paint.setTextAlign(Align.CENTER);
+					canvas.drawText(title, (graphwidth / 2) + horstart, border - 4, paint);
+				}
+			}
 
 			if (maxY == minY) {
 				// if min/max is the same, fake it so that we can render a line
@@ -530,6 +545,28 @@ abstract public class GraphView extends LinearLayout {
 
 	public boolean isShowLegend() {
 		return showLegend;
+	}
+	
+	public boolean isShowTitle(){
+		return showTitle;
+	}
+	
+	public void setShowTitle(boolean showTitle){
+		this.showTitle = showTitle;
+	}
+	
+	public void setHorizontalLabelPosition(int position){
+		if(position == HORIZONTAL_LABEL_POSITION_BOTTOM ||
+				position == HORIZONTAL_LABEL_POSITION_TOP){
+			Log.i("LOG", "got horizontal position: " + position);
+			horizontalLabelPosition = position;
+		} else {
+			throw new IllegalStateException("Horizontal position are only in HORIZONTAL_LABEL_POSITION_BOTTOM & HORIZONTAL_LABEL_POSITION_TOP");
+		}
+	}
+	
+	public int getHorizontalLabelPosition(){
+		return horizontalLabelPosition;
 	}
 
 	public void redrawAll() {
