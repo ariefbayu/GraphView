@@ -15,23 +15,27 @@ import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
  * http://www.gnu.org/licenses/lgpl.html
  */
 public class LineGraphView extends GraphView {
-	private final Paint paintBackground;
+	private Paint paintBackground;
 	private boolean drawBackground;
 
-	public LineGraphView(Context context, String title) {
-		super(context, title);
-
+	private void initPaintBackground(){
 		paintBackground = new Paint();
 		paintBackground.setARGB(255, 20, 40, 60);
 		paintBackground.setStrokeWidth(4);
 	}
+	public LineGraphView(Context context, String title) {
+		super(context, title);
+		initPaintBackground();
+	}
 
 	public LineGraphView(Context context, String title, GraphViewStyle graphViewStyle) {
 		super(context, title, graphViewStyle);
+		initPaintBackground();
+	}
 
-		paintBackground = new Paint();
-		paintBackground.setARGB(255, 20, 40, 60);
-		paintBackground.setStrokeWidth(4);
+	public LineGraphView(Context context, String title, GraphViewStyle graphViewStyle, int height, int width) {
+		super(context, title, graphViewStyle, height, width);
+		initPaintBackground();
 	}
 
 	@Override

@@ -255,7 +255,7 @@ abstract public class GraphView extends LinearLayout {
 	private boolean scrollable;
 	private double viewportStart;
 	private double viewportSize;
-	private final View viewVerLabels;
+	private View viewVerLabels;
 	private ScaleGestureDetector scaleDetector;
 	private boolean scalable;
 	private final NumberFormat[] numberformatter = new NumberFormat[2];
@@ -268,7 +268,30 @@ abstract public class GraphView extends LinearLayout {
 	private double manualMinYValue;
 	private GraphViewStyle graphViewStyle;
 	private GraphViewContentView graphViewContentView;
+	
+	private int layoutHeight = 0;
+	private int layoutWidth = 0;
 
+	private void addAllViews(Context context){
+		if(layoutHeight == 0 || layoutWidth == 0){
+			setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+		} else {
+			setLayoutParams(new LayoutParams(layoutWidth, layoutHeight));
+		}
+		
+		viewVerLabels = new VerLabelsView(context);
+		addView(viewVerLabels);
+		graphViewContentView = new GraphViewContentView(context);
+		addView(graphViewContentView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT, 1));
+	}
+	
+	public void setTitle(String title){
+		if (title == null)
+			title = "";
+		else
+			this.title = title;
+	}
+	
 	/**
 	 *
 	 * @param context
@@ -276,41 +299,36 @@ abstract public class GraphView extends LinearLayout {
 	 */
 	public GraphView(Context context, String title) {
 		super(context);
-		setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 
-		if (title == null)
-			title = "";
-		else
-			this.title = title;
-
+		setTitle(title);
 		graphViewStyle = new GraphViewStyle();
-
 		paint = new Paint();
 		graphSeries = new ArrayList<GraphViewSeries>();
 
-		viewVerLabels = new VerLabelsView(context);
-		addView(viewVerLabels);
-		graphViewContentView = new GraphViewContentView(context);
-		addView(graphViewContentView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT, 1));
+		addAllViews(context);
 	}
 	
 	public GraphView(Context context, String title, GraphViewStyle graphViewStyle){
 		super(context);
-		setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 
-		if (title == null)
-			title = "";
-		else
-			this.title = title;
-
+		setTitle(title);
 		this.graphViewStyle = graphViewStyle;
 		paint = new Paint();
 		graphSeries = new ArrayList<GraphViewSeries>();
+		addAllViews(context);
+	}
 
-		viewVerLabels = new VerLabelsView(context);
-		addView(viewVerLabels);
-		graphViewContentView = new GraphViewContentView(context);
-		addView(graphViewContentView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT, 1));
+	public GraphView(Context context, String title, GraphViewStyle graphViewStyle, int height, int width){
+		super(context);
+
+		setTitle(title);
+		this.graphViewStyle = graphViewStyle;
+		paint = new Paint();
+		graphSeries = new ArrayList<GraphViewSeries>();
+		
+		this.layoutHeight = height;
+		this.layoutWidth = width;
+		addAllViews(context);
 	}
 
 	public GraphViewStyle getGraphViewStyle() {
